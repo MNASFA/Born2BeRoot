@@ -13,10 +13,10 @@ lastb=$(uptime -s | awk -F ':' '{print $1 ":" $2}')
 lvmu=$(if [ $(lsblk | grep "lvm" | wc -l) -gt 0 ]; then echo "yes" ; else echo "no" ; fi)
 prn=$(echo "ESTABLISHED")
 contcp=$(ss -Ht state established | wc -w)
-userlog=$(users | wc -w)
+userlog=$(users | tr ' ' '\n' | uniq | wc -w)
 ip=$(hostname -I | awk '{printf" IP %s" , $1}')
 ipadma=$(ip a | grep "link/ether" | awk '{printf"(%s)" , $2}')
-nucsud=$(journalctl _COMM=sudo | grep "COMMAND" | wc -l |awk '{printf"%s cmd", $1}')
+nucsud=$(journalctl _COMM=sudo | grep "COMMAND" | wc -l | awk '{printf"%s cmd", $1}')
 
 wall "  #Architecture: $arch
         #CPU physical : $cpup
